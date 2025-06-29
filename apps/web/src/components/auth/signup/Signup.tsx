@@ -69,13 +69,13 @@ export function Signup() {
         <div className="absolute inset-0 bg-zinc-900" />
         <div className="relative z-20 flex gap-1 items-center text-lg font-medium">
           <NextImage
-            src="/lc_logo.jpg"
+            src="/lc_logo.png"
             width={36}
             height={36}
             alt="LangChain Logo"
             className="rounded-full"
           />
-          Open Canvas
+          SkillsNation Resume Builder
         </div>
       </div>
       <div className="lg:p-8">

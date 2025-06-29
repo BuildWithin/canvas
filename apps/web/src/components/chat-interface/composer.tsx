@@ -10,29 +10,29 @@ import { ComposerAttachments } from "../assistant-ui/attachment";
 import { ComposerActionsPopOut } from "./composer-actions-popout";
 
 const GENERIC_PLACEHOLDERS = [
-  "Share your big idea and let's write something amazing",
-  "Type your vision for the next great piece of content",
-  "Your masterpiece begins with this prompt",
-  "What would you like us to write about today?",
-  "Drop your content idea here and let's create",
-  "Your next great piece starts with this prompt",
-  "Share your story idea and watch it unfold",
-  "Let's write something incredible - start here",
-  "Your writing journey begins with this prompt",
-  "Turn your idea into content magic - start here",
+  "Let's build your perfect resume together",
+  "Tell me about your career goals and experience",
+  "What skills would you like to develop next?",
+  "Share your work experience - I'll help optimize it",
+  "Let's craft compelling bullet points for your role",
+  "What career transition are you considering?",
+  "Tell me about your achievements to highlight",
+  "Which job posting should we tailor your resume for?",
+  "Let's explore career paths in your field",
+  "What professional story do you want to tell?",
 ];
 
 const SEARCH_PLACEHOLDERS = [
-  "Share your topic - I'll add live data",
-  "Write about anything - I'll find sources",
-  "Your idea + fresh research = great content",
-  "Start here with real-time facts",
-  "Topic here for data-rich content",
-  "Create with current insights",
-  "Write now with live sources",
-  "Your story + fresh data",
-  "Ideas welcome - research ready",
-  "Start fresh with live facts",
+  "Tell me your role - I'll find current job market trends",
+  "Share your skills - I'll research salary insights",
+  "What industry interests you? I'll find growth data",
+  "Name a company - I'll research their hiring needs",
+  "Your target role + current market research",
+  "Explore careers with real-time industry data",
+  "Skills assessment with live job market insights",
+  "Career planning with current hiring trends",
+  "Resume optimization with fresh job posting data",
+  "Professional development with industry research",
 ];
 
 const getRandomPlaceholder = (searchEnabled: boolean) => {

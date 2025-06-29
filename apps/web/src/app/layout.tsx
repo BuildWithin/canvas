@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Open Canvas",
-  description: "Open Canvas Chat UX by LangChain",
+  title: "SkillsNation Resume Builder",
+  description: "Build your resume with your SkillsNation Agents",
 };
 
 export default function RootLayout({
