@@ -1,6 +1,7 @@
 "use client";
 
 import { useToast } from "@/hooks/use-toast";
+import { useUrlContext } from "@/hooks/useUrlContext";
 import {
   convertLangchainMessages,
   convertToOpenAIFormat,
@@ -50,6 +51,7 @@ export function ContentComposerChatInterfaceComponent(
   props: ContentComposerChatInterfaceProps
 ): React.ReactElement {
   const { toast } = useToast();
+  const { getContextSystemMessage } = useUrlContext();
   const userData = useUserContext();
   const { graphData } = useGraphContext();
   const {
@@ -108,6 +110,9 @@ export function ContentComposerChatInterfaceComponent(
     }
 
     try {
+      const contextSystemMessage = getContextSystemMessage();
+      console.log("contextSystemMessage", contextSystemMessage);
+
       const humanMessage = new HumanMessage({
         content: message.content[0].text,
         id: uuidv4(),
@@ -115,11 +120,16 @@ export function ContentComposerChatInterfaceComponent(
           documents: contentDocuments,
         },
       });
+      console.log("humanMessage", humanMessage);
 
+      const messagesToSend = contextSystemMessage
+        ? [contextSystemMessage, humanMessage]
+        : [humanMessage];
+      console.log("messagesToSend", messagesToSend);
       setMessages((prevMessages) => [...prevMessages, humanMessage]);
 
       await streamMessage({
-        messages: [convertToOpenAIFormat(humanMessage)],
+        messages: messagesToSend.map(convertToOpenAIFormat),
       });
     } finally {
       setIsRunning(false);
