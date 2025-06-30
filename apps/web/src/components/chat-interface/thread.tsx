@@ -62,7 +62,7 @@ export const Thread: FC<ThreadProps> = (props: ThreadProps) => {
     setModelName,
     modelConfig,
     setModelConfig,
-    modelConfigs,
+    // modelConfigs,
     setThreadId,
   } = useThreadContext();
   const { user } = useUserContext();
