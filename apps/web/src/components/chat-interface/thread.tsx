@@ -11,7 +11,7 @@ import { TooltipIconButton } from "../ui/assistant-ui/tooltip-icon-button";
 import { TighterText } from "../ui/header";
 import { Composer } from "./composer";
 import { AssistantMessage, UserMessage } from "./messages";
-import ModelSelector from "./model-selector";
+// import ModelSelector from "./model-selector";
 import { ThreadHistory } from "./thread-history";
 import { ThreadWelcome } from "./welcome";
 import { useUserContext } from "@/contexts/UserContext";
@@ -100,7 +100,7 @@ export const Thread: FC<ThreadProps> = (props: ThreadProps) => {
           <TighterText className="text-xl">
             SkillsNation Resume Builder
           </TighterText>
-          {!hasChatStarted && (
+          {/* {!hasChatStarted && (
             <ModelSelector
               modelName={modelName}
               setModelName={setModelName}
@@ -108,7 +108,7 @@ export const Thread: FC<ThreadProps> = (props: ThreadProps) => {
               setModelConfig={setModelConfig}
               modelConfigs={modelConfigs}
             />
-          )}
+          )} */}
         </div>
         {hasChatStarted ? (
           <div className="flex flex-row flex-1 gap-2 items-center justify-end">
@@ -170,13 +170,13 @@ export const Thread: FC<ThreadProps> = (props: ThreadProps) => {
         <div className="w-full max-w-2xl">
           {hasChatStarted && (
             <div className="flex flex-col space-y-2">
-              <ModelSelector
+              {/* <ModelSelector
                 modelName={modelName}
                 setModelName={setModelName}
                 modelConfig={modelConfig}
                 setModelConfig={setModelConfig}
                 modelConfigs={modelConfigs}
-              />
+              /> */}
               <Composer
                 chatStarted={true}
                 userId={props.userId}

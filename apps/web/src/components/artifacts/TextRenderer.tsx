@@ -14,10 +14,11 @@ import { getArtifactContent } from "@opencanvas/shared/utils/artifacts";
 import { useGraphContext } from "@/contexts/GraphContext";
 import React from "react";
 import { TooltipIconButton } from "../ui/assistant-ui/tooltip-icon-button";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import { Textarea } from "../ui/textarea";
 import { cn } from "@/lib/utils";
+import { useToast } from "@/hooks/use-toast";
 
 const cleanText = (text: string) => {
   return text.replaceAll("\\\n", "\n");
@@ -48,6 +49,61 @@ function ViewRawText({
         ) : (
           <Eye className="w-5 h-5 text-gray-600" />
         )}
+      </TooltipIconButton>
+    </motion.div>
+  );
+}
+
+function DownloadText({ artifact }: { artifact: any }) {
+  const { toast } = useToast();
+
+  const handleDownload = () => {
+    if (!artifact) return;
+
+    try {
+      const content = getArtifactContent(artifact);
+      const text =
+        content.type === "text" ? content.fullMarkdown : content.code;
+      const filename = `${artifact.contents[artifact.currentIndex - 1]?.title || "untitled"}.${content.type === "text" ? "md" : "txt"}`;
+
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      toast({
+        title: "Downloaded successfully",
+        description: `The canvas content has been downloaded as ${filename}.`,
+        duration: 5000,
+      });
+    } catch (error) {
+      toast({
+        title: "Download error",
+        description: "Failed to download the canvas content. Please try again.",
+        duration: 5000,
+      });
+    }
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.2 }}
+    >
+      <TooltipIconButton
+        tooltip="Download"
+        variant="outline"
+        delayDuration={400}
+        onClick={handleDownload}
+      >
+        <Download className="w-5 h-5 text-gray-600" />
       </TooltipIconButton>
     </motion.div>
   );
@@ -251,6 +307,7 @@ export function TextRendererComponent(props: TextRendererProps) {
       {props.isHovering && artifact && (
         <div className="absolute flex gap-2 top-2 right-4 z-10">
           <CopyText currentArtifactContent={getArtifactContent(artifact)} />
+          <DownloadText artifact={artifact} />
           <ViewRawText isRawView={isRawView} setIsRawView={setIsRawView} />
         </div>
       )}
