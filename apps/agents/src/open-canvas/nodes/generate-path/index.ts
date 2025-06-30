@@ -21,6 +21,70 @@ function extractURLsFromLastMessage(messages: BaseMessage[]): string[] {
 }
 
 /**
+ * Detects if the conversation context suggests resume/career building scenarios
+ * that would benefit from web search for current market information.
+ */
+function detectResumeContext(messages: BaseMessage[]): boolean {
+  // Look at the last few messages for resume/career context
+  const recentMessages = messages.slice(-3);
+  const conversationText = recentMessages
+    .map((msg) => getStringFromContent(msg.content))
+    .join(" ")
+    .toLowerCase();
+
+  // Resume/career keywords that indicate web search would be valuable
+  const resumeKeywords = [
+    "resume",
+    "cv",
+    "curriculum vitae",
+    "job application",
+    "job search",
+    "hiring",
+    "interview",
+    "career",
+    "professional",
+    "employment",
+    "software engineer",
+    "product manager",
+    "data scientist",
+    "designer",
+    "developer",
+    "programmer",
+    "analyst",
+    "consultant",
+    "google",
+    "meta",
+    "amazon",
+    "microsoft",
+    "apple",
+    "netflix",
+    "startup",
+    "company",
+    "position",
+    "role",
+    "skills",
+    "experience",
+    "qualifications",
+    "requirements",
+    "salary",
+    "compensation",
+    "benefits",
+    "industry",
+    "tech",
+    "technology",
+    "finance",
+    "healthcare",
+    "trending",
+    "demand",
+    "market",
+    "current",
+  ];
+
+  // Check if any resume keywords are present
+  return resumeKeywords.some((keyword) => conversationText.includes(keyword));
+}
+
+/**
  * Routes to the proper node in the graph based on the user's query.
  */
 export async function generatePath(
@@ -107,9 +171,14 @@ export async function generatePath(
     };
   }
 
-  if (state.webSearchEnabled) {
+  // Auto-enable web search for resume/career contexts
+  const shouldAutoEnableSearch =
+    !state.webSearchEnabled && detectResumeContext(state._messages);
+
+  if (state.webSearchEnabled || shouldAutoEnableSearch) {
     return {
       next: "webSearch",
+      ...(shouldAutoEnableSearch ? { webSearchEnabled: true } : {}),
       ...(newMessages.length
         ? { messages: newMessages, _messages: newMessages }
         : {}),

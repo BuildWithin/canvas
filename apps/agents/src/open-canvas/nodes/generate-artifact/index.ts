@@ -47,7 +47,9 @@ export const generateArtifact = async (
   const memoriesAsString = await getFormattedReflections(config);
   const formattedNewArtifactPrompt = formatNewArtifactPrompt(
     memoriesAsString,
-    modelName
+    modelName,
+    state._messages,
+    state.webSearchResults
   );
 
   const userSystemPrompt = optionallyGetSystemPromptFromConfig(config);

@@ -9,6 +9,18 @@ The most recent message from the user is the one you should update to be a more 
 
 Try to keep the new query as similar to the message as possible, while still being search engine friendly.
 
+SPECIAL HANDLING for career/resume contexts:
+- If discussing specific companies: Include "[Company] [JobTitle] requirements [year]" or "[Company] hiring [JobTitle]"
+- If mentioning job titles: Add "job requirements skills [year]" or "job description [year]"  
+- If discussing skills/technologies: Include "trending [skill] jobs [year]" or "[skill] demand market [year]"
+- If mentioning industries: Add "industry trends [year]" or "[industry] job market [year]"
+- If asking about salaries: Include "salary range [location] [year]"
+- If discussing career growth: Add "career path [year]" or "skills needed [year]"
+
+Always include the current year for career-related queries to get the most recent information.
+
+For general queries, maintain the same approach but make them search-engine optimized.
+
 Here is the conversation between the user and the assistant, in order of oldest to newest:
 
 <conversation>
